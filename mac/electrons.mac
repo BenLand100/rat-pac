@@ -1,0 +1,30 @@
+#set the detector parameters
+/rat/db/set DETECTOR experiment "Watchman"
+/rat/db/set DETECTOR geo_file "Watchman/Watchman.geo"
+
+#uncomment to disable the veto pmts
+#/rat/db/set GEO[veto_pmts] enable 0
+#/rat/db/set GEO[shield] veto_len 0
+
+/run/initialize
+
+#BEGIN EVENT LOOP
+
+/rat/proc simpledaq
+/rat/proc count
+/rat/procset update 1
+
+/rat/proc fitcentroid
+#/rat/proc fitbonsai
+
+/rat/proclast outroot
+/rat/procset file "electrons.root"
+
+#END EVENT LOOP
+
+/generator/add combo gun:fill:poisson
+/generator/vtx/set e- 0 0 0 10.0
+/generator/pos/set 0 0 0
+/generator/rate/set 1.0
+
+/run/beamOn 100
