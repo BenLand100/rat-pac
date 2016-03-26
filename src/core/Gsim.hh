@@ -15,6 +15,7 @@
 #include <RAT/DS/PMTInfo.hh>
 #include <RAT/GLG4VEventAction.hh>
 #include <RAT/EventInfo.hh>
+#include <RAT/Chroma.hh>
 
 class G4RunManager;
 class GLG4DebugMessenger;
@@ -78,6 +79,10 @@ protected:
   void PhotonRecurse(std::vector<int> &PhotonIDs, int trackID, int &parentID, int &firstCreatedID);
   void SetOpticalPhotonIDs(std::string particle_type, int trackID, int parentID);
   std::vector<int> OpticalPhotonIDs;
+  
+  #ifdef _HAS_ZMQ
+  Chroma *chroma;
+  #endif
 
   G4RunManager* theRunManager;
   GLG4DebugMessenger* theDebugMessenger;

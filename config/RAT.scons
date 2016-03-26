@@ -115,6 +115,12 @@ if conf.CheckLibWithHeader('bz2', 'bzlib.h', 'c'):
 if conf.CheckLibWithHeader('z','zlib.h','c'):
     conf.env.Append(CPPDEFINES=[('_HAS_Z',1)])
 
+#Build with zmq (chroma) support if header can be found                  
+if conf.CheckLibWithHeader('zmq','zmq.hpp','cxx'):
+    conf.env.Append(LDFLAGS='-lzmq')
+    conf.env.Append(CPPDEFINES=[('_HAS_ZMQ',1)])
+    
+
 # Turn on G4 visualization
 conf.env.Append(CPPDEFINES=[('G4VIS_USE',1)])
 
